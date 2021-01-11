@@ -1,0 +1,21 @@
+name: 'Get file content from blob'
+description: 'Fetch content from blob and write to a file'
+inputs:
+  storage_account_name:
+    required: true
+  account_access_key:
+    required: true
+  container_name:
+    required: true
+  blob_prefix:
+    description: Optional prefix, otherwise first item will be downloaded
+    required: false
+  output_file:
+    description: Optional file path to write to
+    required: false
+outputs:
+  content:
+    description: 'Content from blob'
+runs:
+  using: 'node12'
+  main: 'index.js'

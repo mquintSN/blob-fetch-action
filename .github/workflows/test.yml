@@ -27,4 +27,13 @@ jobs:
          uses: ad-m/github-push-action@master	
          with:	
           github_token: ${{ secrets.TOKEN }}	
-          force: true  
+          force: true 
+       - uses: tpaschalis/s3-sync-action@master
+         with:
+          args: --acl public-read
+         env:
+          FILE: ./test.json
+          AWS_REGION: 'us-west-2'
+          AWS_S3_BUCKET: testingjson
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  

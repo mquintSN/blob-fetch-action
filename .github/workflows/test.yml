@@ -1,6 +1,9 @@
 
 name: Download file from azure, custom js
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+   - cron: '0 10 * * *' # Once per day at 10pm utc/4am cst
 jobs: 
   fetch_blob:
      name: Download content from azure and save to json file

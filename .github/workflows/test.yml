@@ -26,6 +26,6 @@ jobs:
          env:
           FILE: ./test2.json
           AWS_REGION: 'us-west-2'
-          AWS_S3_BUCKET: testingjson
+          AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  

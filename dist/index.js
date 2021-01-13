@@ -14,10 +14,6 @@ const {
   
   const fs = __nccwpck_require__(5747);
   
-  // if (process.env.NODE_ENV !== "production") {
-  //   require("dotenv").config();
-  // }
-  
   const STORAGE_ACCOUNT_NAME = core.getInput('storage_account_name');
   const ACCOUNT_ACCESS_KEY = core.getInput('account_access_key');
   const CONTAINER_NAME = core.getInput('container_name');

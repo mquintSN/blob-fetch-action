@@ -1,31 +1,31 @@
-
-name: Download file from azure, custom js
+name: Download sleep science file from azure
 on:
   workflow_dispatch:
   schedule:
-   - cron: '0 10 * * *' # Once per day at 10pm utc/4am cst
-jobs: 
+    - cron: '0 22 * * *' # Once per day at 10pm utc/4am cst
+jobs:
   fetch_blob:
-     name: Download content from azure and save to json file
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v2
-       - uses: actions/setup-node@v2
-         with:
-            node-version: '12'
-       - uses: ./
-         with:
-           storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-           account_access_key: ${{ secrets.ACCOUNT_ACCESS_KEY }}
-           container_name: ${{ secrets.CONTAINER_NAME }}
-           blob_prefix: ${{ secrets.BLOB_PREFIX }}
-           output_file: 'test2.json'
-       - uses: tpaschalis/s3-sync-action@master
-         with:
+    name: Download content from azure and upload to s3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - run: touch sleepData.json
+      - uses: SleepNumber/blob-fetch-action@main
+        with:
+          storage_account_name: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          account_access_key: ${{ secrets.ACCOUNT_ACCESS_KEY }}
+          container_name: ${{ secrets.CONTAINER_NAME }}
+          blob_prefix: ${{ secrets.BLOB_PREFIX }}
+          output_file: 'sleepData.json'
+      - uses: tpaschalis/s3-sync-action@master
+        with:
           args: --acl public-read
-         env:
-          FILE: ./test2.json
-          AWS_REGION: 'us-east-1'
+        env:
+          FILE: ./sleepData.json
+          AWS_REGION: 'us-west-2'
           AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

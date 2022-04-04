@@ -1,8 +1,6 @@
 name: Download sleep science file from azure
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 22 * * *' # Once per day at 10pm utc/4am cst
 jobs:
   fetch_blob:
     name: Download content from azure and upload to s3
